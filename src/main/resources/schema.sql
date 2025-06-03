@@ -1,0 +1,13 @@
+CREATE TABLE actor (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE `show` (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    actor_id BIGINT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (actor_id) REFERENCES actor(id)
+);
