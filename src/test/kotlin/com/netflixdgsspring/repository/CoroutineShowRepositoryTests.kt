@@ -1,6 +1,6 @@
 package com.netflixdgsspring.repository
 
-import com.netflixdgsspring.entity.Show
+import com.netflixdgsspring.entity.ShowEntity
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -18,7 +18,7 @@ class CoroutineShowRepositoryTests {
     @Test
     @DisplayName("공연 엔티티 삽입")
     fun testInsertShowEntity() = runTest {
-        val show = Show("John's show", 1)
+        val show = ShowEntity("John's shows 2", 2L)
         val saved = showRepo.save(show)
         assertEquals(show.title, saved.title)
     }

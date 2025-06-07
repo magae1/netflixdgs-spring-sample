@@ -4,8 +4,9 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 
 @Table(name= "`show`")
-data class Show (
+data class ShowEntity (
     val title: String,
-    val actorId: Long,
+    val directorId: Long,
     @Id val id: Long? = null,
+    @Transient val director: DirectorEntity? = null,
 )

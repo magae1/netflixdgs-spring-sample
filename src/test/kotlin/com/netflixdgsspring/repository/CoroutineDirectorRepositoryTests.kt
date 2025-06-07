@@ -1,6 +1,6 @@
 package com.netflixdgsspring.repository
 
-import com.netflixdgsspring.entity.Actor
+import com.netflixdgsspring.entity.DirectorEntity
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -10,17 +10,17 @@ import kotlin.test.assertEquals
 
 
 @DataR2dbcTest
-class CoroutineActorRepositoryTests {
+class CoroutineDirectorRepositoryTests {
 
     @Autowired
-    private lateinit var actorRepo: CoroutineActorRepository
+    private lateinit var directorRepo: CoroutineDirectorRepository
 
     @Test
-    @DisplayName("배우 엔티티 삽입")
+    @DisplayName("감독 엔티티 삽입")
     fun testInsertActor() = runTest {
-        val actor = Actor("John")
-        val saved: Actor = actorRepo.save(actor)
-        assertEquals(actor.name, saved.name)
+        val director = DirectorEntity("John")
+        val saved: DirectorEntity = directorRepo.save(director)
+        assertEquals(director.name, saved.name)
     }
 
 }

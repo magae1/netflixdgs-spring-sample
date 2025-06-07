@@ -1,29 +1,25 @@
 package com.netflixdgsspring
 
 import com.netflix.graphql.dgs.DgsComponent
+import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
 import com.netflix.graphql.dgs.DgsQuery
-import com.netflix.graphql.types.errors.ErrorType
-import com.netflixdgsspring.codegen.types.Actor
+import com.netflixdgsspring.codegen.types.Director
 import com.netflixdgsspring.codegen.types.Show
-import graphql.GraphQLError
+import com.netflixdgsspring.service.ShowService
+import org.slf4j.LoggerFactory
 
 
 @DgsComponent
-class ShowsDataFetcher {
-    private val shows = listOf(
-        Show("Stranger Things", listOf(Actor("John"))),
-        Show("Ozark"),
-        Show("The Crown"),
-        Show("Dead to Me"),
-        Show("Orange is the New Black", listOf(Actor("Bob"))))
-
+class ShowsDataFetcher(private val showService: ShowService) {
+    private val logger = LoggerFactory.getLogger(ShowsDataFetcher::class.java)
 
     @DgsQuery
-    fun shows(): List<Show> {
-        val error = GraphQLError.newError().errorType(ErrorType.BAD_REQUEST).message("12344").build()
-        return shows
+    suspend fun shows(dfe: DgsDataFetchingEnvironment): List<Show> {
+        logger.info("Find all shows")
+        return if (dfe.getDfe().selectionSet.contains("director")) {
+            showService.finAllShowWithDirector().map { (id, title, director) -> Show(title, if (director != null) Director(director.name) else null) }
+        } else {
+            showService.findAllShow().map { ( _, title ) -> Show(title) }
+        }
     }
-
-
 }
-

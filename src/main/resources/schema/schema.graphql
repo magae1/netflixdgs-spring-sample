@@ -4,9 +4,9 @@ type Query {
 
 type Show {
     title: String
-    actors: [Actor]
+    director: Director
 }
 
-type Actor {
+type Director {
     name: String!
 }
