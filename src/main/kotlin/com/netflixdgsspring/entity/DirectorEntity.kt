@@ -5,7 +5,7 @@ import org.springframework.data.relational.core.mapping.Table
 
 
 @Table("director")
-data class DirectorEntity (
+data class DirectorEntity(
     val name: String,
     @Id val id: Long? = null,
 )

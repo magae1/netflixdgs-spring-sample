@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 
 
 @Component
-class ShowAdaptor (private val showRepository: CoroutineShowRepository) : ShowPort {
+class ShowAdaptor(private val showRepository: CoroutineShowRepository) : ShowPort {
 
     override suspend fun retrieveAllShow(): List<ShowEntity> {
         val res = this.showRepository.findAll()
@@ -18,7 +18,13 @@ class ShowAdaptor (private val showRepository: CoroutineShowRepository) : ShowPo
 
     override suspend fun retrieveAllShowWithDirector(): List<ShowDTO> {
         val res = showRepository.findShowEntitiesWithDirector()
-        return res.map { details -> (ShowDTO(details.id, details.title, DirectorDTO(details.directorName) )) }
+        return res.map { details ->
+            (ShowDTO(
+                details.id,
+                details.title,
+                DirectorDTO(details.directorName)
+            ))
+        }
     }
-
+    
 }

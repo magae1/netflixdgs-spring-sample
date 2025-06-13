@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class ShowService(private val showAdaptor: ShowAdaptor): ShowUseCase  {
+class ShowService(private val showAdaptor: ShowAdaptor) : ShowUseCase {
 
     override suspend fun findAllShow(): List<ShowDTO> {
         return showAdaptor.retrieveAllShow().map { (title, _, id) -> ShowDTO(id, title) }

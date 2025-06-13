@@ -17,9 +17,14 @@ class ShowsDataFetcher(private val showService: ShowService) {
     suspend fun shows(dfe: DgsDataFetchingEnvironment): List<Show> {
         logger.info("Find all shows")
         return if (dfe.getDfe().selectionSet.contains("director")) {
-            showService.finAllShowWithDirector().map { (id, title, director) -> Show(title, if (director != null) Director(director.name) else null) }
+            showService.finAllShowWithDirector().map { (id, title, director) ->
+                Show(
+                    title,
+                    if (director != null) Director(director.name) else null
+                )
+            }
         } else {
-            showService.findAllShow().map { ( _, title ) -> Show(title) }
+            showService.findAllShow().map { (_, title) -> Show(title) }
         }
     }
 }
